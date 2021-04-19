@@ -24,8 +24,6 @@ def add_csv():
     with open("inventory.csv") as csv_file:
         products_data = list(csv.DictReader(csv_file))
 
-        product_test = products_data[2]["product_name"]
-
         for product in products_data:
             name = product["product_name"]
             price = clean_price(product["product_price"])
@@ -78,21 +76,40 @@ def display_all_products():
 
 
 def display_one_product():
-    print("display one product")
-    
-    product_id = input("Please enter a product id?  ")
+    is_choosing = True
 
-    product = session.query(Product).filter(Product.id == int(product_id)).one_or_none()
-
-    print("====")
-    print(product)
-    print("====")
+    while is_choosing:
+        try:
+            product_id = input("Please enter a product id?  ")
+            product = session.query(Product).filter(Product.id == int(product_id)).one_or_none()
+            print(product)
+            is_choosing = False
+        except:
+            print("""
+                \nAn error occurs.
+                \rPlease try again
+            """)
 
     input("Please press enter to continue...")
 
 
 def add_new_product():
-    print("Add one product")
+    product_name = input("Please enter the product name:  ")
+    product_price = input("Please enter the product price:  ")
+    product_quantity = input("Please enter the product quantity:  ")
+
+
+    print("=====")
+    print(product_name)
+    print("=====")
+    print("=====")
+    print(product_price)
+    print("=====")
+    print("=====")
+    print(product_quantity)
+    print("=====")
+
+    input("Please press enter to continue...")
 
 
 def make_backup():
