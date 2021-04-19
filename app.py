@@ -46,13 +46,41 @@ def add_csv():
         session.commit()
 
 
+def display_menu():
+    menu_options = ["V", "A", "B", "L", "E"]
+
+    print("""
+        \nSTORE INVENTORY
+        \rV) View a single product's inventory
+        \rA) Add a new product to the database
+        \rB) Make a backup of the entire inventory
+        \rL) List all the products
+        \rE) Exit the program
+    """)
+
+    while True:
+        choice = input("What would you like to do?  ")
+
+        if choice.upper() in menu_options:
+            return choice
+        else:
+            print("""
+                \nWrong input.
+                \rPlease try again.
+            """)
+
 
 def app():
-    print("====")
+    add_csv()
+
+    menu_option = display_menu()
+
+    print(menu_option)
+
+    
 
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
     
-    add_csv()
-    
+    app()
