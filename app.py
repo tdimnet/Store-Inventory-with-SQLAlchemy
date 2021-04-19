@@ -70,14 +70,77 @@ def display_menu():
             """)
 
 
+def display_all_products():
+    for product in session.query(Product):
+        print("========")
+        print(product)
+        print("========")
+
+
+def display_one_product():
+    print("display one product")
+    
+    product_id = input("Please enter a product id?  ")
+
+    product = session.query(Product).filter(Product.id == int(product_id)).one_or_none()
+
+    print("====")
+    print(product)
+    print("====")
+
+    input("Please press enter to continue...")
+
+
+def add_new_product():
+    print("Add one product")
+
+
+def make_backup():
+    print("Make backup")
+
+
+def exit_program():
+    print("GoodBye")
+    exit(0)
+
+
+menu = [
+    {
+        "option_letter": "V",
+        "func": display_one_product
+    },
+    {
+        "option_letter": "A",
+        "func": add_new_product
+    },
+    {
+        "option_letter": "B",
+        "func": make_backup
+    },
+    {
+        "option_letter": "L",
+        "func": display_all_products
+    },
+    {
+        "option_letter": "E",
+        "func": exit_program
+    }
+]
+
+
 def app():
     add_csv()
 
-    menu_option = display_menu()
-
-    print(menu_option)
-
+    while True:
+        menu_option = display_menu()
     
+        option_group = filter(
+            lambda option: option["option_letter"] == menu_option.upper(),
+            menu
+        )
+        option_function = list(option_group)[0]["func"]
+
+        option_function()
 
 
 if __name__ == "__main__":
