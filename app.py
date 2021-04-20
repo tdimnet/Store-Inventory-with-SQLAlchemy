@@ -1,6 +1,4 @@
 from store_inventory.models import Base, engine
-
-
 from store_inventory.csv import add_csv
 from store_inventory.commands import (
     add_new_product,
@@ -9,6 +7,8 @@ from store_inventory.commands import (
     exit_program,
     make_backup
 )
+
+from store_inventory.utils import handle_product_price_input
 
 
 MENU = [
@@ -63,12 +63,12 @@ def app():
     while True:
         menu_option = display_menu()
     
+        # Retrieve the function in the MENU matching the letter choese by the user
         option_group = filter(
             lambda option: option["option_letter"] == menu_option.upper(),
             MENU
         )
         option_function = list(option_group)[0]["func"]
-
         option_function()
 
 

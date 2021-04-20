@@ -1,7 +1,7 @@
 import csv
 
-from store_inventory.models import session, Product
 
+from store_inventory.models import session, Product
 from store_inventory.utils import clean_date, clean_price
 
 

@@ -3,7 +3,7 @@ import datetime
 
 def clean_price(price_str):
     parse_to_float = float(price_str.replace("$", ""))
-    return int(parse_to_float * 100)
+    return round(parse_to_float * 100)
 
 
 def clean_date(date_str):
@@ -16,10 +16,20 @@ def clean_date(date_str):
     return datetime.date(year, month, day)
 
 
-def handle_product_input(sentence):
+def handle_product_quantity_input():
     # Keep asking for product name if something went wrong
     while True:
         try:
-            return int(input(sentence))
+            return int(input("Please enter the product quantity:  "))
+        except:
+            print("Failed when entering input...")
+
+
+def handle_product_price_input():
+    while True:
+        try:
+            return round(
+                float(input("Please enter the product price:  ")) * 100
+            )
         except:
             print("Failed when entering input...")

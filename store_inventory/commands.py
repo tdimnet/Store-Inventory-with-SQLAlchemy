@@ -3,7 +3,10 @@ import datetime
 
 
 from store_inventory.models import Product, session
-from store_inventory.utils import handle_product_input
+from store_inventory.utils import (
+    handle_product_price_input,
+    handle_product_quantity_input
+)
 
 
 def display_all_products():
@@ -38,9 +41,10 @@ def display_one_product():
 
 def add_new_product():
     product_name = input("Please enter the product name:  ")
-    product_price = handle_product_input("Please enter the product price:  ")
-    product_quantity = handle_product_input("Please enter the product quantity:  ")
+    product_price = handle_product_price_input()
+    product_quantity = handle_product_quantity_input()
     product_date = datetime.datetime.now().date()
+    
 
     try:
         new_product = Product(
