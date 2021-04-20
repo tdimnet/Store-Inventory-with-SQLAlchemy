@@ -98,10 +98,18 @@ def display_one_product():
     input("Please press enter to continue...")
 
 
+def handle_product_input(sentence):
+    # Keep asking for product name if something went wrong
+    while True:
+        try:
+            return int(input(sentence))
+        except:
+            print("Failed when entering input...")
+
 def add_new_product():
     product_name = input("Please enter the product name:  ")
-    product_price = input("Please enter the product price:  ")
-    product_quantity = input("Please enter the product quantity:  ")
+    product_price = handle_product_input("Please enter the product price:  ")
+    product_quantity = handle_product_input("Please enter the product quantity:  ")
     product_date = datetime.datetime.now().date()
 
     try:
