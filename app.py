@@ -106,6 +106,7 @@ def handle_product_input(sentence):
         except:
             print("Failed when entering input...")
 
+
 def add_new_product():
     product_name = input("Please enter the product name:  ")
     product_price = handle_product_input("Please enter the product price:  ")
@@ -130,6 +131,22 @@ def add_new_product():
 
 def make_backup():
     print("Make backup")
+
+    now = datetime.datetime.now().date()
+
+    backup_csv_file = open(f"./backups/{now}.csv", "w")
+    out = csv.writer(backup_csv_file)
+    out.writerow(["name", "price", "quantity", "date"])
+
+    for product in session.query(Product):
+        out.writerow([
+            product.name,
+            product.price,
+            product.quantity,
+            product.date,
+        ])
+    
+    backup_csv_file.close()
 
 
 def exit_program():
