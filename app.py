@@ -102,17 +102,20 @@ def add_new_product():
     product_name = input("Please enter the product name:  ")
     product_price = input("Please enter the product price:  ")
     product_quantity = input("Please enter the product quantity:  ")
+    product_date = datetime.datetime.now().date()
 
-
-    print("=====")
-    print(product_name)
-    print("=====")
-    print("=====")
-    print(product_price)
-    print("=====")
-    print("=====")
-    print(product_quantity)
-    print("=====")
+    try:
+        new_product = Product(
+            name=product_name,
+            price=product_price,
+            quantity=product_quantity,
+            date=product_date
+        )
+        session.add(new_product)
+        
+        session.commit()
+    except:
+        print("Failed when inserting new product")
 
     input("Please press enter to continue...")
 
