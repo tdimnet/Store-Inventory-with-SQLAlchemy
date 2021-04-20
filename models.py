@@ -20,4 +20,4 @@ class Product(Base):
     date = Column("Date", Date)
 
     def __repr__(self):
-        return f"Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}"
+        return f"({self.id}) Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}"

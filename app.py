@@ -69,10 +69,15 @@ def display_menu():
 
 
 def display_all_products():
+    index = 0
     for product in session.query(Product):
-        print("========")
         print(product)
-        print("========")
+        
+        index += 1
+
+        # In a real project, I would add LIMIT and OFFSET
+        if index % 10 == 0:
+            input("\nPress enter to see the next ten objets")
 
 
 def display_one_product():
