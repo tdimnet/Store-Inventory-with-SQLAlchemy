@@ -8,8 +8,6 @@ from store_inventory.commands import (
     make_backup
 )
 
-from store_inventory.utils import handle_product_price_input
-
 
 MENU = [
     {

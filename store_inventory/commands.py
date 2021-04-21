@@ -45,15 +45,21 @@ def add_new_product():
     product_quantity = handle_product_quantity_input()
     product_date = datetime.datetime.now().date()
     
+    product_in_db = session.query(Product).filter(Product.name == product_name).one_or_none()
 
     try:
-        new_product = Product(
-            name=product_name,
-            price=product_price,
-            quantity=product_quantity,
-            date=product_date
-        )
-        session.add(new_product)
+
+        if product_in_db == None:
+            new_product = Product(
+                name=product_name,
+                price=product_price,
+                quantity=product_quantity,
+                date=product_date
+            )
+            session.add(new_product)
+        else:
+            product_in_db.quantity = product_quantity
+            product_in_db.price = product_price
         
         session.commit()
     except:
@@ -63,23 +69,27 @@ def add_new_product():
 
 
 def make_backup():
-    print("Make backup")
-
     now = datetime.datetime.now().date()
 
-    backup_csv_file = open(f"./store_inventory/backups/{now}.csv", "w")
-    out = csv.writer(backup_csv_file)
-    out.writerow(["name", "price", "quantity", "date"])
+    try:
+        backup_csv_file = open(f"./store_inventory/backups/{now}.csv", "w")
+        out = csv.writer(backup_csv_file)
+        out.writerow(["name", "price", "quantity", "date"])
 
-    for product in session.query(Product):
-        out.writerow([
-            product.name,
-            product.price,
-            product.quantity,
-            product.date,
-        ])
-    
-    backup_csv_file.close()
+        for product in session.query(Product):
+            out.writerow([
+                product.name,
+                product.price,
+                product.quantity,
+                product.date,
+            ])
+        
+        backup_csv_file.close()
+
+        print("\nBackup succeed!")
+    except:
+        print("======WARNING======")
+        print("Backup failed!")
 
 
 def exit_program():
