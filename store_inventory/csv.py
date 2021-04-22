@@ -26,7 +26,10 @@ def add_csv():
                 )
                 session.add(new_product)
             else:
-                product_in_db.quantity = quantity
-                product_in_db.price = price
+
+                if date > product_in_db.date:
+                    product_in_db.quantity = quantity
+                    product_in_db.price = price
+                    product_in_db.date = date
         
         session.commit()

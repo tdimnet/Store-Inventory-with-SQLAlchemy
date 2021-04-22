@@ -28,7 +28,12 @@ def display_one_product():
         try:
             product_id = input("Please enter a product id?  ")
             product = session.query(Product).filter(Product.id == int(product_id)).one_or_none()
-            print(product)
+            
+            if product == None:
+                print("No product found for this id")
+            else:
+                print(product)
+
             is_choosing = False
         except:
             print("""
@@ -58,9 +63,13 @@ def add_new_product():
             )
             session.add(new_product)
         else:
-            product_in_db.quantity = product_quantity
-            product_in_db.price = product_price
+            if product_date > product_in_db.date:
+
+                product_in_db.quantity = product_quantity
+                product_in_db.price = product_price
+                product_in_db.date = product_date
         
+        print("\nSuccessfully insert {} in db\n".format(product_name))
         session.commit()
     except:
         print("Failed when inserting new product")
