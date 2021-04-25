@@ -63,7 +63,7 @@ def add_new_product():
             )
             session.add(new_product)
         else:
-            if product_date > product_in_db.date:
+            if product_date >= product_in_db.date:
 
                 product_in_db.quantity = product_quantity
                 product_in_db.price = product_price
